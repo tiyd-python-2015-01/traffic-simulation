@@ -20,7 +20,8 @@ class Car:
             self.speed += self.acceleration
             return self.speed
         else:
-            return self.max_speed
+            self.speed = self.max_speed
+            return self.speed
 
     def decelerate(self):
         self.speed -= self.deceleration

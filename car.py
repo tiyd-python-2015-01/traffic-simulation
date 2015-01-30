@@ -61,3 +61,8 @@ class Car:
         """Returns the current speed of the car for data tracking by the
         simulation"""
         return self.speed
+
+    def stop(self):
+        """Stops the car.  Called if a collision will occur if the car
+        continues"""
+        self.speed = 0

@@ -15,9 +15,14 @@ class Road:
 
 
     def __init__(self, modifier=1):
-        self.road = np.zeros(1000)
+        self.road = np.zeros(1000).tolist()
         self.modifier = modifier
 
     def get_road_modifier(self):
         """Returns the slowdown modifier for this road object.  Default is 1"""
         return self.modifier
+
+    def insert_car(self, car):
+        """Inserts a car into the starting location of this road object"""
+        for count in range(len(car)):
+            self.road[count] = car

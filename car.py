@@ -30,7 +30,7 @@ class Car:
         different car types."""
         return self.length
 
-    def random_slowdown(self, road_modifier):
+    def random_slowdown(self, road_modifier=1):
         """When called slows the car down by 2 meters per second 10% of the
         time"""
         if np.random.random() > .9 * road_modifier:

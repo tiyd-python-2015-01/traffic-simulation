@@ -34,7 +34,6 @@ class Sim():
         for car in cars:
             if car.is_car_too_close(cars[counter]):
                 car.too_close_car(cars[counter])
-
             if counter == (len(cars) - 1):
                 counter = 0
             else:

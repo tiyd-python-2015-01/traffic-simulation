@@ -6,7 +6,7 @@ import matplotlib.pyplot as ply
 
 
 def multiple_simulations(num_simulations=100):
-    output_car_speeds = np.array([]).reshape(0,30)
+    output_car_speeds = np.array([]).reshape(0, 30)
     output_tracks = np.array(np.zeros((1, 1000)))
 
     for _ in range(num_simulations):
@@ -32,8 +32,8 @@ def one_full_simulation(lenth_of_time=60):
 
 def one_second_turn(cars, simulation):
     the_road = Road()
-    simulation.move_rules(cars)
     simulation.car_impact(cars)
+    simulation.move_rules(cars)
     simulation.move_cars_on_road(the_road, cars)
     simulation.increase_car_speed(cars)
 
@@ -50,6 +50,7 @@ def build_car_classes(num_cars=30):
         counter += 33
     return car_list
 
+
 def final_report():
 
     track_results, speed = multiple_simulations()
@@ -57,16 +58,19 @@ def final_report():
     speed_std = Sim.m_to_km_conversion(np.std(speed))
     rec_speed = speed_mean + speed_std
     track_plotting(track_results)
+    print(speed_std)
 
     return rec_speed
 
+
 def track_plotting(track_results):
     x = track_results
-    y = np.arange(1,101)
+    y = np.arange(1, 101)
     choice = 50
     colors = np.random.rand(choice)
 
-    ply.imshow(x, cmap="Greys", interpolation="nearest")
+    ply.imshow(x, cmap="Greys", interpolation="nearest", aspect='auto')
     ply.show()
 
-final_report()
+
+print(final_report())

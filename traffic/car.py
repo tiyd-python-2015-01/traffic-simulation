@@ -19,7 +19,8 @@ class Car():
 
     def rising_speed(self):
         if random.random() < .1:
-            self.speed -= 2
+            if self.speed >1:
+                self.speed -= 2
         else:
             if self.speed < 32:
                 self.speed += 2

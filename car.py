@@ -1,5 +1,6 @@
 from road import Road
 
+
 class Car:
     def __init__(self,
              length=5,
@@ -34,10 +35,7 @@ class Car:
         then accelerate"""
 
     def accelerate_condition_speed(self):
-        if self.speed < self.max_speed:
-            return True
-        else:
-            return False
+        return self.speed < self.max_speed
 
         """If your speed is less than max speed and
         If the index of the car 20 in front of this one is empty,

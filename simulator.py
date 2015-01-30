@@ -29,16 +29,11 @@ class Simulator:
 
     def create_car(self):
         """Creates a new car object of random type and puts it onto the road"""
-        new_car = random.randomchoice(self.car_types)()
-        self.place_car_on_road(new_car)
+        new_car = random.choice(self.car_types)()
+        self.roads[0].insert_car(new_car)
 
     def next(self):
         pass
-
-    def place_car_on_road(self, new_car):
-        """Places a car into the road object in the initial location"""
-        for count in range(len(new_car)):
-            self.roads[0] = new_car
 
     def start(self):
         """Fills the road with cars.  Returns when the road is full and
@@ -51,3 +46,4 @@ class Simulator:
                 next_car_at = iterations + np.random.randint(2, 7)
                 car_count += 1
             iterations += 1
+            self.next()

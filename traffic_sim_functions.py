@@ -2,6 +2,7 @@ import numpy as np
 
 # traffic_sim_functions.py
 # Alan Grissett
+# alan.grissett@gmail.com
 
 """This script is a traffic simulation of a 7km long road.  The first, third,
 fifth and sevents km are all straight stretches of road.  The other sections

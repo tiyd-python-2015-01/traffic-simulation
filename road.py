@@ -8,5 +8,5 @@ class Road:
     def give_position(self, car):
         pass
 
-    def place_car(self, position):
-        new_road = self.blank_road[position:(position+5)] += 1
+    #def place_car(self, position):
+    #    new_road = self.blank_road[position:(position+5)] += 1

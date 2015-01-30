@@ -58,6 +58,13 @@ class Car:
         self.position += round(self.speed)
         return self.position
 
+    def update_speed(self, road_modifier=1):
+        """Combines the random_slowdown and increase speed methods to a single
+        callable method that excludes the possibility of both increasing
+        and decreasing the cars speed in the same second."""
+        if not self.random_slowdown(road_modifier):
+            self.increase_speed()
+
     def report_speed(self):
         """Returns the current speed of the car for data tracking by the
         simulation"""

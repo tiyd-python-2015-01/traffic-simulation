@@ -22,6 +22,10 @@ class Road:
         """Returns the slowdown modifier for this road object.  Default is 1"""
         return self.modifier
 
+    def get_section(self, start, stop):
+        """Returns a slice of the road"""
+        return self.road[start:stop]
+
     def insert_car(self, car):
         """Inserts a car into the starting location of this road object"""
         for count in range(len(car)):

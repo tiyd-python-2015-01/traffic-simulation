@@ -2,6 +2,7 @@ from road import Road
 
 import random
 
+
 class Car:
     def __init__(self,
                  position=0,
@@ -11,12 +12,12 @@ class Car:
                  max_speed=33.33,
                  car_distance=20,
                  speed=20):
-        self.position = position%1000
+        self.position = position % 1000
         self.length = length
         self.acceleration = acceleration
         self.deceleration = deceleration
         self.max_speed = max_speed
-        self.car_distance= car_distance
+        self.car_distance = car_distance
         self.speed = speed
 
     def accelerate(self):
@@ -37,33 +38,24 @@ class Car:
         """If there's a car anywhere in the 25 spots ahead of the
         current car's position, don't accelerate.  Otherwise do."""
         check = (
-        [_ for _ in car_list if self.position < _.position < ((self.position)+25)])
-        if check:
-            return False
-        else:
-            return True
+            [_ for _ in car_list
+                if self.position < _.position < ((self.position)+25)])
+        return check
 
     def accelerate_condition_speed(self):
-<<<<<<< HEAD
-        return self.speed < self.max_speed
-=======
         """If your speed is less than max speed, accelerate"""
-        if self.speed < self.max_speed:
-            return True
-        else:
-            return False
->>>>>>> fb895c6d0a9a0dd27f1655ddb3139d1203251c1c
+        return self.speed < self.max_speed
 
     def accelerate_condition(self, car_list):
-        if (accelerate_condition_speed() and
-            accelerate_condition_car(car_list)):
+        if (self.accelerate_condition_speed() and
+                self.accelerate_condition_car(car_list)):
             return True
         else:
             return False
 
-    def random_deceleration(self, chance = .1):
+    def random_deceleration(self, chance=0.1):
         """checks to see if the car will randomly decelerate"""
-        if random.random < chance:
+        if random.random() < chance:
             return True
         else:
             return False
@@ -74,14 +66,14 @@ class Car:
         self.position += self.speed
         return self.position
 
-    #I realized that I don't really need a decelarate condition, since
-    #it's basically the same as the accelerate condition.  When that
-    #condition is false, we decelerate
-    # def decelerate_condition(self, road):
-    #     """If the index of any of the 20 indeces in front of the car
-    #     is full, then decelerate"""
-    #     for _ in car_list:
-    #         if _ in range(self.position, self.position + 25):
-    #             return True
-    #         else:
-    #             return False
+    # I realized that I don't really need a decelarate condition, since
+    # it's basically the same as the accelerate condition.  When that
+    # condition is false, we decelerate
+    #  def decelerate_condition(self, road):
+    #      """If the index of any of the 20 indeces in front of the car
+    #      is full, then decelerate"""
+    #      for _ in car_list:
+    #          if _ in range(self.position, self.position + 25):
+    #              return True
+    #          else:
+    #              return False

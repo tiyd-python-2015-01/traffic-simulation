@@ -20,6 +20,7 @@ class Car:
         self.acceleration = 2
         self.max_speed = 33.333
         self.length = 5
+        self.spacing = 20
         self.position = np.array([0, 4])
 
     def __len__(self):

@@ -2,12 +2,13 @@ from road import Road
 
 class Car:
     def __init__(self,
-             length=5,
-             acceleration=2,
-             deceleration=2,
-             max_speed=33.33,
-             car_distance=20,
-             speed=20):
+                 position=0,
+                 length=5,
+                 acceleration=2,
+                 deceleration=2,
+                 max_speed=33.33,
+                 car_distance=20,
+                 speed=20):
         self.length = length
         self.acceleration = acceleration
         self.deceleration = deceleration
@@ -28,8 +29,7 @@ class Car:
 
     def accelerate_condition_car(self, road):
         pass
-        """If your speed is less than max speed and
-        If the index of the car 20 in front of this one is empty,
+        """If the index of the car 20 in front of this one is empty,
         then accelerate"""
 
     def accelerate_condition_speed(self):

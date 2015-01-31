@@ -8,10 +8,10 @@ def accelerate_condition_car(car, car_list):
     current car's position, return False.  Otherwise True"""
     check = (
         [x for x in car_list if (
-            car.position < x.position < ((car.position)+25))])
+            (car.position) < x.position < ((car.position)+25))])
     check1000 = (
         [x for x in car_list if (
-            car.position < (x.position+1000) < ((car.position)+25))])
+            (car.position) < (x.position+1000) < ((car.position)+25))])
 
     if check:
         problem_car = check[0]
@@ -32,7 +32,7 @@ def random_deceleration(chance=.1):
 
 
 def car_movement(car, car_list):
-    car.move()
+    car.move1()
     if accelerate_condition_car(car, car_list):
         problem_car = accelerate_condition_car(car, car_list)
         car.speed = problem_car[1]
@@ -42,8 +42,9 @@ def car_movement(car, car_list):
                 car.decelerate()
         else:
             car.accelerate()
+    car.move2()
     return car
-    
+
 
 def all_car_movement(car_list):
     for car in car_list:

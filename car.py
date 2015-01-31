@@ -49,10 +49,17 @@ class Car:
         else:
             return False
 
-    def move(self):
+    def move1(self):
         """moves the car based on original position and speed, sets
         new position for the car"""
-        self.position += self.speed
+        self.position += ((self.speed)*2/3)
+        self.position %= 1000
+        return self.position
+
+    def move2(self):
+        """moves the car based on original position and speed, sets
+        new position for the car"""
+        self.position += ((self.speed)/3)
         self.position %= 1000
         return self.position
 

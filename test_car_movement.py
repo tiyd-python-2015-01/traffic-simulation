@@ -3,11 +3,11 @@ from car import Car
 
 
 def test_accelerate_condition_car():
-    car1 = Car(position=0)
-    car2 = Car(position=40)
-    car3 = Car(position=60)
-    car4 = Car(position=80)
-    car5 = Car(position=999)
+    car1 = Car(position=0, speed=20)
+    car2 = Car(position=40, speed=20)
+    car3 = Car(position=60, speed=20)
+    car4 = Car(position=80, speed=20)
+    car5 = Car(position=999, speed=20)
     car_list = [car1, car2, car3, car4]
 
     assert accelerate_condition_car(car1, car_list) is False

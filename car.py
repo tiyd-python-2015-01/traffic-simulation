@@ -55,3 +55,11 @@ class Car:
         self.position += self.speed
         self.position %= 1000
         return self.position
+
+    def move_check(self):
+        """checks to see the position to which the car would move under
+        current speed and acceleration"""
+        current_position = self.position
+        current_speed = self.speed
+        future_position = current_position + current_speed
+        return future_position

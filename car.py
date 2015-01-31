@@ -8,7 +8,7 @@ class Car:
                  length=5,
                  acceleration=2,
                  deceleration=2,
-                 max_speed=33.33,
+                 max_speed=33,
                  car_distance=20,
                  speed=20):
         self.position = position%1000
@@ -30,14 +30,16 @@ class Car:
             return self.speed
 
     def decelerate(self):
+        """slows the car down by the set deceleration"""
         self.speed -= self.deceleration
         return self.speed
 
     def accelerate_condition_car(self, car_list):
         """If there's a car anywhere in the 25 spots ahead of the
-        current car's position, don't accelerate.  Otherwise do."""
+        current car's position, return False.  Otherwise True"""
+        new_list = [car.position for car in car_list]
         check = (
-        [_ for _ in car_list if self.position < _.position < ((self.position)+25)])
+        [value for value in new_list if self.position < value < ((self.position)+25)])
         if check:
             return False
         else:
@@ -50,19 +52,19 @@ class Car:
         else:
             return False
 
-    def accelerate_condition(self, car_list):
-        if (accelerate_condition_speed() and
-            accelerate_condition_car(car_list)):
-            return True
-        else:
-            return False
+    # def accelerate_condition(self, car_list):
+    #     if (self.accelerate_condition_speed() and
+    #         self.accelerate_condition_car(car_list)):
+    #         return True
+    #     else:
+    #         return False
 
-    def random_deceleration(self, chance = .1):
-        """checks to see if the car will randomly decelerate"""
-        if random.random < chance:
-            return True
-        else:
-            return False
+    # def random_deceleration(self, chance = .1):
+    #     """checks to see if the car will randomly decelerate"""
+    #     if random.random() < chance:
+    #         return True
+    #     else:
+    #         return False
 
     def move(self):
         """moves the car based on original position and speed, sets

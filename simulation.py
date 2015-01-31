@@ -2,6 +2,9 @@ from car import Car
 from road import Road
 from car_movement import*
 
+import numpy as np
+
+
 class Simulation:
     def __init__(self):
         car1 = Car(position=0)
@@ -35,14 +38,25 @@ class Simulation:
         car29 = Car(position=840)
         car30 = Car(position=870)
         self.car_list = (
-        [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10,
-        car11, car12, car13, car14, car15, car16, car17, car18, car19,
-        car20, car21, car22, car23, car24, car25, car26, car27, car28,
-         car29, car30])
+            [car1, car2, car3, car4, car5, car6, car7, car8, car9, car10,
+             car11, car12, car13, car14, car15, car16, car17, car18, car19,
+             car20, car21, car22, car23, car24, car25, car26, car27, car28,
+             car29, car30])
+        self.positions = []
+        self.speeds = []
 
-        def sim_round(self):
-            new_car_list = all_car_movement(self.car_list)
-            positions = [car.position for car in new_car_list]
-            speeds = [car.speed for car in new_car_list]
-            print(positions)
-            print(speeds)
+    def sim_round(self):
+        new_car_list = all_car_movement(self.car_list)
+        positions = [car.position for car in new_car_list]
+        speeds = [car.speed for car in new_car_list]
+        (self.positions).append(positions)
+        (self.speeds).append(speeds)
+        #print(self.positions)
+        #print(positions)
+        return self.positions, self.speeds
+
+
+    def iterate(self, x):
+        for number in range(x):
+            self.sim_round()
+        return self.positions, self.speeds

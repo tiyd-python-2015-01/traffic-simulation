@@ -1,6 +1,7 @@
 from car_movement import*
 from car import Car
 
+
 def test_accelerate_condition_car():
     car1 = Car(position=0)
     car2 = Car(position=40)

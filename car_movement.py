@@ -1,5 +1,5 @@
 from car import Car
-from road import Road
+
 import random
 
 
@@ -7,9 +7,11 @@ def accelerate_condition_car(car, car_list):
     """If there's a car anywhere in the 25 spots ahead of the
     current car's position, return False.  Otherwise True"""
     check = (
-    [x for x in car_list if car.position < x.position < ((car.position)+25)])
+        [x for x in car_list if (
+            car.position < x.position < ((car.position)+25))])
     check1000 = (
-    [x for x in car_list if car.position < (x.position+1000) < ((car.position)+25)])
+        [x for x in car_list if (
+            car.position < (x.position+1000) < ((car.position)+25))])
 
     if check:
         problem_car = check[0]
@@ -21,7 +23,7 @@ def accelerate_condition_car(car, car_list):
         return False
 
 
-def random_deceleration(chance = .1):
+def random_deceleration(chance=.1):
     """checks to see if the car will randomly decelerate"""
     if random.random() < chance:
         return True
@@ -36,11 +38,12 @@ def car_movement(car, car_list):
         car.speed = problem_car[1]
     else:
         if random_deceleration():
-            car.decelerate()
+            if car.speed > 2:
+                car.decelerate()
         else:
             car.accelerate()
     return car
-
+    
 
 def all_car_movement(car_list):
     for car in car_list:
@@ -48,7 +51,7 @@ def all_car_movement(car_list):
     return car_list
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     car1 = Car(position=0)
     car2 = Car(position=40)
     car3 = Car(position=60)

@@ -1,6 +1,3 @@
-import random
-
-
 class Car:
     """
     Responsibilities:
@@ -16,13 +13,9 @@ class Car:
     def __init__(self, position=0, current_speed=0):
         self.position = position
         self.current_speed = current_speed
-        self.max_speed = 33.33  # all units of speed measurement in m/s
+        self.max_speed = 33  # all units of speed measurement in m/s
         self.acceleration = 2  # fixed acceleration amount
         self.length = 5
-
-    # def is_other_car_in_range(check_for_car=False):
-    #     """can be changed by road if another car is within range"""
-    #     return check_for_car
 
     def accelerate(self):
         """accelerates the car until it gets to max_speed"""
@@ -43,5 +36,4 @@ class Car:
         self.current_speed = 0
 
     def move(self):
-        self.accelerate()
-        self.position += self.current_speed
+        self.position = (self.position + self.current_speed) % 1000

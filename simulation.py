@@ -1,7 +1,7 @@
 from car import Car
 from road import Road
 import random
-
+import numpy as np
 
 class Simulation:
     """
@@ -17,6 +17,7 @@ class Simulation:
     def __init__(self, car_list=[]):
         self.road = Road()
         self.car_list = car_list
+        self.iterations = 0
 
     def initialize_car_list(self, number_of_cars):
         increment = round(self.road.length / number_of_cars+1)
@@ -59,7 +60,6 @@ class Simulation:
         else:
             return (next_car.position + 1000 - car.position) <= 25
 
-    @profile
     def one_second(self):
         """A one second iteration of the simulation"""
         self.road.reset()
@@ -73,14 +73,25 @@ class Simulation:
             car.move()
             self.road.place_car(car)
 
+
     def run_simulation(self, seconds):
         """ Runs the a one second iteration for a number of seconds"""
+        car_position_array = np.zeros(shape=(seconds, 30))
+        car_speed_array = np.zeros(shape=(seconds, 30))
+        self.car_list = []  # Clear car list
         self.initialize_car_list(30)
         self.add_cars_to_road
-        for _ in range(seconds):
+        for i in range(seconds):
             self.one_second()
+            car_position_array[i] = [car.position for car in self.car_list]
+            car_speed_array[i] = [car.current_speed for car in self.car_list]
+        return car_position_array, car_speed_array
 
 
-sim = Simulation()
-
-sim.run_simulation(120)
+    def get_car_speeds(self):
+        """Iterates through the car list and returns the current speed of each
+        car"""
+        car_speeds = []
+        for car in self.car_list:
+            car_speeds.append(car.current_speed)
+        return car_speeds

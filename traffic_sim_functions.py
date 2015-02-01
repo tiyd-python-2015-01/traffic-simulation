@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+from statistics import mean, stdev
 
 # traffic_sim_functions.py
 # Alan Grissett
@@ -108,13 +110,14 @@ def get_road_modifier(location):
         return 1
 
 
-def main(prep_iterations, data_iterations, number_of_cars=240):
+def main(prep_iterations, data_iterations, number_of_cars=30):
     """Launching function for the simulation.  Takes arguments for the number
     of iterations to proceed through before recording data, the number of
     iterations to record data for, and has an optional argument for the
     number of cars in the simulation.  The default number of cars is 240."""
     populate_road(number_of_cars)
     run_simulation(prep_iterations, data_iterations)
+    return car_list
 
 
 def next_second(iterations=0, record_data=False):
@@ -127,9 +130,10 @@ def next_second(iterations=0, record_data=False):
         update_mean(iterations)
 
 
+
 def populate_road(number_of_cars):
     """A function to generate any number of cars for use in the simulation.
-    The default number of cars is 240"""
+    The default number of cars is 30"""
     iterations, next_car = 0, 0
     while len(car_list) < number_of_cars:
         if iterations == next_car:
@@ -144,12 +148,10 @@ def run_simulation(prep_iterations, data_iterations):
     iterations allow the flow of traffic to normalize after populating the
     road, while data iterations are the iterations for which data will be
     recorded"""
-    simulation_iterations = 1
     for _ in range(prep_iterations):
         next_second()
-    for _ in range(data_iterations):
-        next_second(simulation_iterations, record_data=True)
-        simulation_iterations += 1
+    for _ in range(1, data_iterations + 1):
+        next_second(data_iterations, record_data=True)
 
 
 def update_locations():
@@ -208,9 +210,3 @@ def wrap_rear(car):
     """Wraps the rear of the car to the beginning of the road once it has
     crossed the 7km mark"""
     car["rear"] -= 7000
-
-
-if __name__ == '__main__':
-    main(240, 24000)
-    for car in car_list:
-        print(car["mean speed"], car["type"])

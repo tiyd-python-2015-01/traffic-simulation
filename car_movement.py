@@ -1,5 +1,3 @@
-from car import Car
-
 import random
 
 
@@ -32,6 +30,7 @@ def random_deceleration(chance=.1):
 
 
 def car_movement(car, car_list):
+    """Moves the car based on a conditional tree of various factors"""
     car.move1()
     if accelerate_condition_car(car, car_list):
         problem_car = accelerate_condition_car(car, car_list)
@@ -47,38 +46,7 @@ def car_movement(car, car_list):
 
 
 def all_car_movement(car_list):
+    """Iterates all cars through car movement"""
     for car in car_list:
         car = car_movement(car, car_list)
     return car_list
-
-
-if __name__ == '__main__':
-    car1 = Car(position=0)
-    car2 = Car(position=40)
-    car3 = Car(position=60)
-    car4 = Car(position=80)
-    car_list = [car1, car2, car3, car4]
-
-    print(car_list[0].speed, car_list[0].position)
-    print(car_list[1].speed, car_list[1].position)
-    print(car_list[2].speed, car_list[2].position)
-    print(car_list[3].speed, car_list[3].position)
-    print("")
-    all_car_movement(car_list)
-    print(car_list[0].speed, car_list[0].position)
-    print(car_list[1].speed, car_list[1].position)
-    print(car_list[2].speed, car_list[2].position)
-    print(car_list[3].speed, car_list[3].position)
-    print("")
-    car_movement(car1, car_list)
-    print(car_list[0].speed, car_list[0].position)
-    print(car_list[1].speed, car_list[1].position)
-    print(car_list[2].speed, car_list[2].position)
-    print(car_list[3].speed, car_list[3].position)
-    print("")
-    all_car_movement(car_list)
-    print(car_list[0].speed, car_list[0].position)
-    print(car_list[1].speed, car_list[1].position)
-    print(car_list[2].speed, car_list[2].position)
-    print(car_list[3].speed, car_list[3].position)
-    car_movement(car1, car_list)

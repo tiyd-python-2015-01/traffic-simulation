@@ -69,6 +69,7 @@ def test_move():
     car2.move()
     assert car.position == 20
 
+
 def test_move_check():
     car = Car(position=0, speed=20)
     x = car.move_check()

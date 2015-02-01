@@ -1,4 +1,16 @@
 class Car:
+    """
+    Responsibilities:
+    * sets car's position, length, acceleration rate, deceleration
+    rate, max_speed, and the distance it wants to keep between other
+    cars
+    * keeps track of the car's speed
+    * can accelerate and change its speed
+    * can decelerate and change its speed
+    * can move itself, changing its position based on speed
+
+
+    """
     def __init__(self,
                  position=0,
                  length=5,
@@ -29,25 +41,6 @@ class Car:
         """slows the car down by the set deceleration"""
         self.speed -= self.deceleration
         return self.speed
-
-    def accelerate_condition_car(self, car_list):
-        """If there's a car anywhere in the 25 spots ahead of the
-        current car's position, return False.  Otherwise True"""
-        new_list = [car.position for car in car_list]
-        check = (
-            [value for value in new_list if (
-                self.position < value < ((self.position)+25))])
-        if check:
-            return False
-        else:
-            return True
-
-    def accelerate_condition_speed(self):
-        """If your speed is less than max speed, accelerate"""
-        if self.speed < self.max_speed:
-            return True
-        else:
-            return False
 
     def move1(self):
         """moves the car based on original position and speed, sets

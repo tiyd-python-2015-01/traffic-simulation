@@ -1,11 +1,16 @@
 from car import Car
-from road import Road
 from car_movement import*
 
-import numpy as np
-
-
 class Simulation:
+    """
+    Responsibilities:
+    * Enter 30 cars into the simulation at relatively equal spacing
+    * Move cars over a 1 second round and collect their updated speeds
+    and positions
+    *Simulates movement over a set number of rounds and collects all
+    speed and position data over those rounds
+    """
+
     def __init__(self):
         car1 = Car(position=0)
         car2 = Car(position=30)
@@ -46,17 +51,18 @@ class Simulation:
         self.speeds = []
 
     def sim_round(self):
+        """moves all cars over a 1 second round, returns a tuple of their
+        new positions, speeds"""
         new_car_list = all_car_movement(self.car_list)
         positions = [car.position for car in new_car_list]
         speeds = [car.speed for car in new_car_list]
         (self.positions).append(positions)
         (self.speeds).append(speeds)
-        #print(self.positions)
-        #print(positions)
         return self.positions, self.speeds
 
-
     def iterate(self, x):
+        """creates a traffic simulation of many round(seconds), returning
+        positions and speeds"""
         for number in range(x):
             self.sim_round()
         return self.positions, self.speeds

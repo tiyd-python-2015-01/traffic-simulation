@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from statistics import mean, stdev
+from time import sleep
 
 # traffic_sim_functions.py
 # Alan Grissett
@@ -110,17 +111,25 @@ def get_road_modifier(location):
         return 1
 
 
-def main(prep_iterations, data_iterations, number_of_cars=30):
+def initialize_plot(iterations):
+    plt.axis([0, 7000, 0, iterations])
+    plt.ion()
+
+
+def main(prep_iterations, data_iterations, number_of_cars=30,
+         live_update=False):
     """Launching function for the simulation.  Takes arguments for the number
     of iterations to proceed through before recording data, the number of
     iterations to record data for, and has an optional argument for the
     number of cars in the simulation.  The default number of cars is 240."""
+    if live_update:
+        initialize_plot(data_iterations)
     populate_road(number_of_cars)
-    run_simulation(prep_iterations, data_iterations)
+    run_simulation(prep_iterations, data_iterations, live_update)
     return car_list
 
 
-def next_second(iterations=0, record_data=False):
+def next_second(iterations=0, record_data=False, live_update=False):
     """Updates the position and location of all cars currently on the road.
     If record_data is True, a moving mean of the car's speed is kept."""
     update_speeds()
@@ -128,7 +137,8 @@ def next_second(iterations=0, record_data=False):
 
     if record_data:
         update_mean(iterations)
-
+    if live_update:
+        update_plot(iterations)
 
 
 def populate_road(number_of_cars):
@@ -143,15 +153,15 @@ def populate_road(number_of_cars):
         next_second()
 
 
-def run_simulation(prep_iterations, data_iterations):
+def run_simulation(prep_iterations, data_iterations, live_update):
     """Runs the simulation for the specified number of iterations.  Prep
     iterations allow the flow of traffic to normalize after populating the
     road, while data iterations are the iterations for which data will be
     recorded"""
     for _ in range(prep_iterations):
         next_second()
-    for _ in range(1, data_iterations + 1):
-        next_second(data_iterations, record_data=True)
+    for iteration in range(1, data_iterations + 1):
+        next_second(iteration, record_data=True, live_update=live_update)
 
 
 def update_locations():
@@ -176,6 +186,17 @@ def update_mean(iterations):
         for car in car_list:
             car["mean speed"] = car["speed"]
 
+
+def update_plot(iteration):
+    for car in car_list:
+        if car["type"] == "Standard":
+            plt.scatter(car["front"], iteration, marker=".")
+            plt.pause(.001)
+        elif car["type"] == "Aggressive":
+            plt.scatter(car["front"], iteration, marker=".", color="red")
+            plt.pause(.001)
+        else:
+            plt.scatter(car["front"], iteration, marker=".", color="green")
 
 def update_speeds():
     """Updates the car's speed based on the rules of the simulation."""
@@ -210,3 +231,6 @@ def wrap_rear(car):
     """Wraps the rear of the car to the beginning of the road once it has
     crossed the 7km mark"""
     car["rear"] -= 7000
+
+if __name__ == '__main__':
+    main(100, 200, live_update=True)

@@ -116,9 +116,8 @@ def initialize_plot(iterations):
     global figure
     figure = plt.figure()
     axes = plt.axes(xlim=(0, 7000), ylim=(0, iterations))
-    #plt.show(block=False)
-    plt.ion()
-    plt.show()
+    plt.show(block=False)
+    
 
 
 def main(prep_iterations, data_iterations, number_of_cars=30,

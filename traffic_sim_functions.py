@@ -9,7 +9,7 @@ from statistics import mean, stdev
 # alan.grissett@gmail.com
 
 """This script is a traffic simulation of a 7km long road.  The first, third,
-fifth and sevents km are all straight stretches of road.  The other sections
+fifth and seventh km are all straight stretches of road.  The other sections
 have varying degrees of curves which may cause drivers to slow down more
 frequently.  There are three types of drivers in the simulation.  Normal
 drivers and agressive drivers both have 5m long vehicles, while commercial

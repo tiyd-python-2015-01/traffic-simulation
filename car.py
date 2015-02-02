@@ -24,20 +24,19 @@ class Car:
         """Makes sure car wont drive off the map"""
         if self.location + self.speed <= self.road.length:
             return True
+
     def move_car(self):
         """Moves car up as many spaces as its speed"""
-        self.road.roads[self.location] = 0
         self.location += self.speed
-        self.road.roads[self.location] = 1
+
     def loop_car(self):
         """ for cars at end of track puts it to a beginning location based on
         speed"""
 
         def adjust_ratio():
             return (self.location + self.speed) - self.road.length
-        self.road.roads[self.location] = 0
         self.location = adjust_ratio()
-        self.road.roads[self.location] = 1
+
 
     def go(self):
 

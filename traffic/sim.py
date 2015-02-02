@@ -26,6 +26,7 @@ class Sim():
         for car in cars:
             self.remove_car(roadway, car)
             car.update_speed_to_loc()
+            self.move_rules(cars)
             self.add_car(roadway, car)
         return roadway
 

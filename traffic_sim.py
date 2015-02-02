@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as ply
 
 
-def multiple_simulations(num_simulations=100):
+def multiple_simulations(num_simulations=1000):
     output_car_speeds = np.array([]).reshape(0, 30)
     output_tracks = np.array(np.zeros((1, 1000)))
 
@@ -58,7 +58,8 @@ def final_report():
     speed_std = Sim.m_to_km_conversion(np.std(speed))
     rec_speed = speed_mean + speed_std
     track_plotting(track_results)
-    print(speed_std)
+    print('Standard Deviation: ',speed_std)
+    print('Mean: ',speed_mean)
 
     return rec_speed
 

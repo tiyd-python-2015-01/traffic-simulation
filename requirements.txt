@@ -1,0 +1,6 @@
+ipython[all]
+numpy
+statistics
+random
+seaborn
+matplotlib

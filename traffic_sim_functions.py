@@ -67,7 +67,7 @@ def check_for_stop(index, car):
         return ((car["front"] + car["speed"]) - 7000
                 >= car_list[len(car_list)-1]["rear"])
     else:
-        return car["front"] + car["speed"] >= car_list[index-1]["rear"]
+        return car["front"] + car["speed"] >= (car_list[index-1]["rear"])
 
 
 def check_max_speed(car):
@@ -211,17 +211,17 @@ def update_plot(iteration):
 
 def update_speeds():
     """Updates the car's speed based on the rules of the simulation."""
-    for car in enumerate(car_list):
-        if check_for_stop(car[0], car[1]):
-            car[1]["speed"] = 0
-        elif check_spacing(car[0], car[1]):
-            if car[1]["speed"] > car_list[car[0]-1]["speed"]:
-                car[1]["speed"] = car_list[car[0]-1]["speed"]
-        elif check_random_slowdown(car[1]):
-            car[1]["speed"] -= 2
-        elif not check_max_speed(car[1]):
-            car[1]["speed"] += 2
-        validate_speed(car[1])
+    for index, car in enumerate(car_list):
+        if check_for_stop(index, car):
+            car["speed"] = 0
+        elif check_spacing(index, car):
+            if car["speed"] > car_list[index-1]["speed"]:
+                car["speed"] = car_list[index-1]["speed"]
+        elif check_random_slowdown(car):
+            car["speed"] -= 2
+        elif not check_max_speed(car):
+            car["speed"] += 2
+        validate_speed(car)
 
 
 def validate_speed(car):
@@ -245,4 +245,4 @@ def wrap_rear(car):
     car["rear"] -= 7000
 
 if __name__ == '__main__':
-    main(240, 1000, number_of_cars=30, live_update=True)
+    main(1000, 1000, number_of_cars=50, live_update=True)

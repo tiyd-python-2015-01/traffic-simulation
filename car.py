@@ -1,9 +1,10 @@
 from road import Road
 import random
 
+
 class Car:
 
-    def __init__(self,desired_speed, speed, road, start_location):
+    def __init__(self, desired_speed, speed, road, start_location):
 
         self.speed = speed
         self.road = road
@@ -37,9 +38,8 @@ class Car:
             return (self.location + self.speed) - self.road.length
         self.location = adjust_ratio()
 
-
     def go(self):
-
+        """Moves the cars after checking driving logic"""
         if self.check_location():
             self.move_car()
         else:

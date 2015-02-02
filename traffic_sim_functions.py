@@ -111,11 +111,14 @@ def get_road_modifier(location):
 
 
 def initialize_plot(iterations):
+    """Initializes the live-update plot."""
     global axes
     global figure
     figure = plt.figure()
     axes = plt.axes(xlim=(0, 7000), ylim=(0, iterations))
-    plt.show(block=False)
+    #plt.show(block=False)
+    plt.ion()
+    plt.show()
 
 
 def main(prep_iterations, data_iterations, number_of_cars=30,
@@ -190,6 +193,8 @@ def update_mean(iterations):
 
 
 def update_plot(iteration):
+    """Update method to blit the new scatter plot to the canvas after each
+    iteration of the simulation."""
     for car in car_list:
         if car["type"] == "Standard":
             new_point = plt.scatter(car["front"], iteration, marker=".")
@@ -242,4 +247,4 @@ def wrap_rear(car):
     car["rear"] -= 7000
 
 if __name__ == '__main__':
-    main(240, 1000, number_of_cars=50, live_update=True)
+    main(240, 1000, number_of_cars=30, live_update=True)

@@ -1,5 +1,7 @@
 # Traffic simulation
 
+#Run traffic_simulation.py in python3
+
 ## Description
 
 Analyze the behavior of drivers on a new road to determine the optimal speed

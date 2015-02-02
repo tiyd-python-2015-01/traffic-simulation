@@ -25,6 +25,7 @@ class Simulation:
             self.traffic.append(a_car)
 
     def is_first_car(self, car):
+        """Checks if is the farthest ahead at beginning"""
         if self.traffic.index(car) == len(self.traffic) - 1:
             return True
 
@@ -36,6 +37,7 @@ class Simulation:
             return self.traffic[self.traffic.index(car)+1]
 
     def is_end_of_loop(self, car):
+        """Checks if the trailing car is towards the end of the loop"""
         if car.location > self.next_car(car).location:
             return True
 

@@ -1,5 +1,3 @@
-from road import Road
-
 import random
 
 
@@ -9,15 +7,16 @@ class Car:
                  length=5,
                  acceleration=2,
                  deceleration=2,
+                 deceleration_chance=0.1,
                  max_speed=33.33,
-                 car_distance=20,
                  speed=20):
         self.position = position % 1000
         self.length = length
         self.acceleration = acceleration
         self.deceleration = deceleration
+        self.deceleration_chance = deceleration_chance
         self.max_speed = max_speed
-        self.car_distance = car_distance
+        self.car_following_distance = length * 4
         self.speed = speed
 
     def accelerate(self):
@@ -31,40 +30,55 @@ class Car:
             return self.speed
 
     def decelerate(self):
-        self.speed -= self.deceleration
-        return self.speed
+        if self.speed - self.deceleration > 0:
+            self.speed -= self.deceleration
+        else:
+            self.speed = 0
+        # What if you decelerate below 0?
 
-    def accelerate_condition_car(self, car_list):
-        """If there's a car anywhere in the 25 spots ahead of the
-        current car's position, don't accelerate.  Otherwise do."""
-        check = (
-            [_ for _ in car_list
-                if self.position < _.position < ((self.position)+25)])
-        return check
+    def is_within_range_of_bumper(self, car_list):
+        """If there's a car rear end anywhere in the following range of the
+        current car's position, return False.  Otherwise True."""
+        following_distance = self.position + self.car_following_distance
+        for car in car_list:
+            if self.position < car.back_of_car() < following_distance:
+                return False
+        return True
 
-    def accelerate_condition_speed(self):
+    def match_speed(self, car_list):
+        """Get the speed of the car in front of you."""
+        following_distance = self.position + self.car_following_distance
+        for car in car_list:
+            if self.position < car.back_of_car() < following_distance:
+                return car.speed
+
+    def back_of_car(self):
+        return self.position - self.length
+
+    def accelerate_condition(self):
         """If your speed is less than max speed, accelerate"""
         return self.speed < self.max_speed
 
-    def accelerate_condition(self, car_list):
-        if (self.accelerate_condition_speed() and
-                self.accelerate_condition_car(car_list)):
-            return True
-        else:
-            return False
-
-    def random_deceleration(self, chance=0.1):
+    def random_deceleration(self):
         """checks to see if the car will randomly decelerate"""
-        if random.random() < chance:
-            return True
-        else:
-            return False
+        return random.random() < self.deceleration_chance
 
     def move(self):
         """moves the car based on original position and speed, sets
         new position for the car"""
-        self.position += self.speed
+        self.position = (self.position + self.speed) % 1000
         return self.position
+
+    def will_hit_car(self, car_list):
+        future_position = (self.position + self.speed) % 1000
+        for car in car_list:
+            if self.position < car.back_of_car() < future_position:
+                return True
+        return False
+
+    def stop(self):
+        """Makes car speed zero. Used to prevent running into a car."""
+        self.speed = 0
 
     # I realized that I don't really need a decelarate condition, since
     # it's basically the same as the accelerate condition.  When that

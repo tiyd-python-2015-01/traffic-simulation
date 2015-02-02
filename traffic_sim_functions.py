@@ -1,7 +1,8 @@
+import matplotlib
+matplotlib.use('TkAgg')
 import numpy as np
 import matplotlib.pyplot as plt
 from statistics import mean, stdev
-from time import sleep
 
 # traffic_sim_functions.py
 # Alan Grissett
@@ -34,7 +35,7 @@ def build_car():
                   "rear": 0,
                   "speed": 0,
                   "acceleration": 5,
-                  "max speed": 41.666,
+                  "max speed": 38.888,
                   "spacing": 15,
                   "slow chance": .05,
                   "mean speed": 0,
@@ -64,8 +65,7 @@ def check_for_stop(index, car):
     at it's current speed would cause it to collide with another car."""
     if not index:
         return ((car["front"] + car["speed"]) - 7000
-                >= car_list[len(car_list)-1]["rear"]
-                and len(car_list) > 1)
+                >= car_list[len(car_list)-1]["rear"])
     else:
         return car["front"] + car["speed"] >= car_list[index-1]["rear"]
 
@@ -93,8 +93,7 @@ def check_spacing(index, car):
     the car matches the speed of the car in front."""
     if not index:
         return ((car["front"] + car["spacing"]) - 7000
-                >= car_list[len(car_list)-1]["rear"]
-                and len(car_list) > 1)
+                >= car_list[len(car_list)-1]["rear"])
     else:
         return car["front"] + car["spacing"] >= car_list[index-1]["rear"]
 
@@ -112,8 +111,11 @@ def get_road_modifier(location):
 
 
 def initialize_plot(iterations):
-    plt.axis([0, 7000, 0, iterations])
-    plt.ion()
+    global axes
+    global figure
+    figure = plt.figure()
+    axes = plt.axes(xlim=(0, 7000), ylim=(0, iterations))
+    plt.show(block=False)
 
 
 def main(prep_iterations, data_iterations, number_of_cars=30,
@@ -190,13 +192,19 @@ def update_mean(iterations):
 def update_plot(iteration):
     for car in car_list:
         if car["type"] == "Standard":
-            plt.scatter(car["front"], iteration, marker=".")
-            plt.pause(.001)
+            new_point = plt.scatter(car["front"], iteration, marker=".")
+            axes.draw_artist(new_point)
         elif car["type"] == "Aggressive":
-            plt.scatter(car["front"], iteration, marker=".", color="red")
-            plt.pause(.001)
+            new_point = plt.scatter(car["front"], iteration, marker=".",
+                                    color="red")
+            axes.draw_artist(new_point)
         else:
-            plt.scatter(car["front"], iteration, marker=".", color="green")
+            new_point = plt.scatter(car["front"], iteration, marker=".",
+                                    color="green")
+            axes.draw_artist(new_point)
+    figure.canvas.blit()
+    figure.canvas.flush_events()
+
 
 def update_speeds():
     """Updates the car's speed based on the rules of the simulation."""
@@ -204,7 +212,8 @@ def update_speeds():
         if check_for_stop(car[0], car[1]):
             car[1]["speed"] = 0
         elif check_spacing(car[0], car[1]):
-            car[1]["speed"] = car_list[car[0]-1]["speed"]
+            if car[1]["speed"] > car_list[car[0]-1]["speed"]:
+                car[1]["speed"] = car_list[car[0]-1]["speed"]
         elif check_random_slowdown(car[1]):
             car[1]["speed"] -= 2
         elif not check_max_speed(car[1]):
@@ -233,4 +242,4 @@ def wrap_rear(car):
     car["rear"] -= 7000
 
 if __name__ == '__main__':
-    main(100, 200, live_update=True)
+    main(240, 1000, number_of_cars=50, live_update=True)

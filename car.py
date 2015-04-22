@@ -79,15 +79,3 @@ class Car:
     def stop(self):
         """Makes car speed zero. Used to prevent running into a car."""
         self.speed = 0
-
-    # I realized that I don't really need a decelarate condition, since
-    # it's basically the same as the accelerate condition.  When that
-    # condition is false, we decelerate
-    #  def decelerate_condition(self, road):
-    #      """If the index of any of the 20 indeces in front of the car
-    #      is full, then decelerate"""
-    #      for _ in car_list:
-    #          if _ in range(self.position, self.position + 25):
-    #              return True
-    #          else:
-    #              return False

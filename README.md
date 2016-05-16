@@ -68,6 +68,10 @@ up.
 Remember that one simulation is meaningless: you need many simulations for the
 law of large numbers to matter.
 
+This simulation currently has a few bugs which prevent it from being particularly
+useful. It does demonstrate proper Monte Carlo methods, but my logic is flawed in 
+getting all the car behaviors correct.
+
 ## Additional Resources
 
 * Chapters 1 and 2 of [Monte Carlo Theory, Methods, and Examples](http://statweb.stanford.edu/~owen/mc/).
